@@ -787,4 +787,5 @@ def opa_model():
         
         # Expert Weights
         st.markdown('<div class="result-table">', unsafe_allow_html=True)
-        st.subheader("
+        st.subheader("Normalized Expert Weights")
+        df
