@@ -99,26 +99,6 @@ st.markdown("""
     margin: 1.5rem 0;
 }
 
-.optimization-formulation {
-    background-color: #f8f9fa;
-    border-left: 4px solid var(--primary);
-    padding: 1.5rem;
-    border-radius: 8px;
-    margin: 1.5rem 0;
-    font-family: 'Courier New', monospace;
-    font-size: 0.9rem;
-    line-height: 1.6;
-}
-
-.optimization-section {
-    background-color: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin: 1.5rem 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
 .stButton>button {
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     color: white;
@@ -454,87 +434,6 @@ def create_opa_word_document(criteria, theta, defuzz_values, coeff, ranked_crite
     doc_bytes.seek(0)
     return doc_bytes
 
-def display_optimization_formulation(coeff_list, n, criteria_names):
-    """Display the optimization problem formulation"""
-    st.markdown('<div class="optimization-section">', unsafe_allow_html=True)
-    st.markdown('<h3 class="section-header">TTrFS-OPA Optimization Problem Formulation</h3>', unsafe_allow_html=True)
-    
-    # Objective Function
-    st.markdown("""
-    <div class="optimization-formulation">
-    <strong>Objective Function:</strong><br>
-    Maximize: (2·Ψ_l + 7·Ψ_m + 7·Ψ_u + 2·Ψ_w) / 18
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Decision Variables
-    st.markdown("""
-    <div class="optimization-formulation">
-    <strong>Decision Variables:</strong><br>
-    w_lᵢ, w_mᵢ, w_uᵢ, w_wᵢ ≥ 0 for i = 1,...,n<br>
-    Ψ_l, Ψ_m, Ψ_u, Ψ_w ≥ 0
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Constraints
-    st.markdown("""
-    <div class="optimization-formulation">
-    <strong>Constraints:</strong><br>
-    1. Fuzzy weight ordering:<br>
-    &nbsp;&nbsp;w_lᵢ ≤ w_mᵢ ≤ w_uᵢ ≤ w_wᵢ for all i<br><br>
-    
-    2. Normalization constraints:<br>
-    &nbsp;&nbsp;∑w_lᵢ = 0.8<br>
-    &nbsp;&nbsp;∑w_mᵢ = 0.9<br>
-    &nbsp;&nbsp;∑w_uᵢ = 1.1<br>
-    &nbsp;&nbsp;∑w_wᵢ = 1.2<br><br>
-    
-    3. Adjacent criteria constraints (for a = 1 to n-1):<br>
-    &nbsp;&nbsp;θₗᵃ·(w_lᵃ - w_wᵃ⁺¹) ≥ Ψ_l<br>
-    &nbsp;&nbsp;θₘᵃ·(w_mᵃ - w_uᵃ⁺¹) ≥ Ψ_m<br>
-    &nbsp;&nbsp;θᵤᵃ·(w_uᵃ - w_mᵃ⁺¹) ≥ Ψ_u<br>
-    &nbsp;&nbsp;θ_wᵃ·(w_wᵃ - w_lᵃ⁺¹) ≥ Ψ_w<br><br>
-    
-    4. Last criterion constraint:<br>
-    &nbsp;&nbsp;θₗⁿ·w_lⁿ ≥ Ψ_l<br>
-    &nbsp;&nbsp;θₘⁿ·w_mⁿ ≥ Ψ_m<br>
-    &nbsp;&nbsp;θᵤⁿ·w_uⁿ ≥ Ψ_u<br>
-    &nbsp;&nbsp;θ_wⁿ·w_wⁿ ≥ Ψ_w
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Display specific coefficients for this problem
-    st.markdown("""
-    <div class="optimization-formulation">
-    <strong>Problem-specific Coefficients (θ):</strong>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    coeff_df = pd.DataFrame({
-        'Criterion': criteria_names,
-        'θ_l': [f"{coeff[0]:.4f}" for coeff in coeff_list],
-        'θ_m': [f"{coeff[1]:.4f}" for coeff in coeff_list],
-        'θ_u': [f"{coeff[2]:.4f}" for coeff in coeff_list],
-        'θ_w': [f"{coeff[3]:.4f}" for coeff in coeff_list]
-    })
-    st.dataframe(coeff_df, use_container_width=True, hide_index=True)
-    
-    # Mathematical notation explanation
-    with st.expander("Mathematical Notation Explanation"):
-        st.markdown("""
-        **Notation:**
-        - **w_lᵢ, w_mᵢ, w_uᵢ, w_wᵢ**: Trapezoidal fuzzy weight components for criterion i
-        - **Ψ_l, Ψ_m, Ψ_u, Ψ_w**: Auxiliary variables representing satisfaction degrees
-        - **θₗᵢ, θₘᵢ, θᵤᵢ, θ_wᵢ**: Coefficient components for criterion i
-        - **n**: Number of criteria
-        
-        **Coefficient Calculation:**
-        θₗᵢ = min_l / wᵢ, θₘᵢ = min_l / uᵢ, θᵤᵢ = min_l / mᵢ, θ_wᵢ = min_l / lᵢ
-        where min_l is the minimum l-component across all fuzzy importance values
-        """)
-    
-    st.markdown('</div>', unsafe_allow_html=True)
-
 def opa_model():
     st.markdown('<div class="logo-container">', unsafe_allow_html=True)
     st.markdown('<div class="logo">⚖️</div>', unsafe_allow_html=True)
@@ -821,19 +720,6 @@ def opa_model():
         })
         st.dataframe(df_coeff, use_container_width=True, hide_index=True)
         st.markdown('</div>', unsafe_allow_html=True)
-        
-        # NEW: Optimization Problem Formulation
-        if hasattr(st.session_state, 'opa_coeff') and hasattr(st.session_state, 'opa_criteria'):
-            # Get the sorted coefficients for the optimization problem
-            sorted_indices = np.argsort(st.session_state.opa_defuzz_values)[::-1]
-            coeff_sorted = [st.session_state.opa_coeff[idx] for idx in sorted_indices]
-            criteria_sorted = [st.session_state.opa_criteria[idx] for idx in sorted_indices]
-            
-            display_optimization_formulation(
-                coeff_sorted, 
-                st.session_state.opa_num_criteria, 
-                criteria_sorted
-            )
         
         # Weights
         st.markdown('<div class="result-table">', unsafe_allow_html=True)
