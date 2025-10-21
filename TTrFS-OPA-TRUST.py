@@ -1822,7 +1822,6 @@ def trust_step8_calculations():
         st.session_state.trust_data = {}
         st.rerun()
 
- st.markdown('</div>', unsafe_allow_html=True)
     
     with st.expander("Learn more about the Trigonometric Trapezoidal Fuzzy TRUST (TTrF-TRUST) Method"):
         st.markdown("""
