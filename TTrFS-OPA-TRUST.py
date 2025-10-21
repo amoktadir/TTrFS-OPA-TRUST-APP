@@ -1199,6 +1199,27 @@ def trust_step1_input():
         st.session_state.trust_step = 2
         st.rerun()
 
+with st.expander("Learn more about the Trigonometric Trapezoidal Fuzzy TRUST (TTrF-TRUST) Method"):
+        st.markdown("""
+        **Steps of Trigonometric Trapezoidal Fuzzy OPA (TTrF-OPA):**
+        
+        1. Experts provide linguistic assessments for the criteria importance.
+        2. Convert to trapezoidal fuzzy numbers and aggregate using trigonometric trapezoidal fuzzy weighted geometric (TTrFWG) operator with expert weights.
+        3. Compute weight-coefficients using $min_l / w$, $min_l / u$, $min_l / m$, $min_l / l$.
+        4. Defuzzify to rank criteria to form contraints.
+        5. Formulate and solve a fuzzy linear programming model to find the final weights and defuzzify and rank.
+        
+        **Linguistic Terms and TrFN:**
+        ELI (Extremely Low Importance), VLI (Very Low Importance), LI (Low Importance), MI (Medium Importance), HI (High Importance), VHI (Very High Importance), EHI (Extremely High Importance)
+        - ELI: (1.0, 1.5, 2.5, 3.0)
+        - VLI: (2.0, 2.5, 3.5, 4.0)
+        - LI: (3.0, 3.5, 4.5, 5.0)
+        - MI: (4.0, 4.5, 5.5, 6.0)
+        - HI: (5.0, 5.5, 6.5, 7.0)
+        - VHI: (6.0, 6.5, 7.5, 8.0)
+        - EHI: (7.0, 7.5, 8.5, 9.0)
+        """)
+
 def trust_step2_criteria_setup():
     st.header("Step 2: Criteria Setup")
     
@@ -1821,28 +1842,6 @@ def trust_step8_calculations():
         st.session_state.trust_step = 1
         st.session_state.trust_data = {}
         st.rerun()
-
-    
-    with st.expander("Learn more about the Trigonometric Trapezoidal Fuzzy TRUST (TTrF-TRUST) Method"):
-        st.markdown("""
-        **Steps of Trigonometric Trapezoidal Fuzzy OPA (TTrF-OPA):**
-        
-        1. Experts provide linguistic assessments for the criteria importance.
-        2. Convert to trapezoidal fuzzy numbers and aggregate using trigonometric trapezoidal fuzzy weighted geometric (TTrFWG) operator with expert weights.
-        3. Compute weight-coefficients using $min_l / w$, $min_l / u$, $min_l / m$, $min_l / l$.
-        4. Defuzzify to rank criteria to form contraints.
-        5. Formulate and solve a fuzzy linear programming model to find the final weights and defuzzify and rank.
-        
-        **Linguistic Terms and TrFN:**
-        ELI (Extremely Low Importance), VLI (Very Low Importance), LI (Low Importance), MI (Medium Importance), HI (High Importance), VHI (Very High Importance), EHI (Extremely High Importance)
-        - ELI: (1.0, 1.5, 2.5, 3.0)
-        - VLI: (2.0, 2.5, 3.5, 4.0)
-        - LI: (3.0, 3.5, 4.5, 5.0)
-        - MI: (4.0, 4.5, 5.5, 6.0)
-        - HI: (5.0, 5.5, 6.5, 7.0)
-        - VHI: (6.0, 6.5, 7.5, 8.0)
-        - EHI: (7.0, 7.5, 8.5, 9.0)
-        """)
 
 # ==================== MAIN APP ====================
 
