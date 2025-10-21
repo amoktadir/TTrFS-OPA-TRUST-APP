@@ -895,18 +895,18 @@ def opa_model():
         )
         st.markdown('</div>', unsafe_allow_html=True)
     
-    with st.expander("Learn more about the Trigonometric Trapezoidal Fuzzy OPA Method"):
+    with st.expander("Learn more about the Trigonometric Trapezoidal Fuzzy OPA (TTrF-OPA) Method"):
         st.markdown("""
-        **Steps of Trigonometric Trapezoidal Fuzzy OPA:**
+        **Steps of Trigonometric Trapezoidal Fuzzy OPA (TTrF-OPA):**
         
-        1. Experts provide linguistic assessments for criteria importance.
-        2. Convert to trapezoidal fuzzy numbers and aggregate using FTWG with expert weights.
-        3. Compute coefficients using $min_l / w$, $min_l / u$, $min_l / m$, $min_l / l$.
-        4. Defuzzify to rank criteria.
-        5. Formulate and solve a fuzzy linear programming model to find the final weights.
+        1. Experts provide linguistic assessments for the criteria importance.
+        2. Convert to trapezoidal fuzzy numbers and aggregate using trigonometric trapezoidal fuzzy weighted geometric (TTrFWG) operator with expert weights.
+        3. Compute weight-coefficients using $min_l / w$, $min_l / u$, $min_l / m$, $min_l / l$.
+        4. Defuzzify to rank criteria to form contraints.
+        5. Formulate and solve a fuzzy linear programming model to find the final weights and defuzzify and rank.
         
         **Linguistic Terms and TrFN:**
-        
+        ELI (Extremely Low Importance), VLI (Very Low Importance), LI (Low Importance), MI (Medium Importance), HI (High Importance), VHI (Very High Importance), EHI (Extremely High Importance)
         - ELI: (1.0, 1.5, 2.5, 3.0)
         - VLI: (2.0, 2.5, 3.5, 4.0)
         - LI: (3.0, 3.5, 4.5, 5.0)
@@ -918,7 +918,7 @@ def opa_model():
 
 # ==================== TRUST MODEL FUNCTIONS ====================
 
-# Linguistic terms to TrFS mapping for TRUST
+# Linguistic terms to TrFS mapping for TTrFS-TRUST
 ling_to_trfn_trust = {
     'ELI': (0.00, 0.10, 0.20, 0.30),
     'VLI': (0.10, 0.20, 0.30, 0.40),
@@ -1094,7 +1094,7 @@ def create_trust_word_document(all_data):
 def trust_model():
     st.markdown('<div class="logo-container">', unsafe_allow_html=True)
     st.markdown('<div class="logo">📊</div>', unsafe_allow_html=True)
-    st.markdown('<h1 class="main-header">TRUST Method: Multi-normalization Multi-distance Assessment</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 class="main-header">TTrFS-TRUST Method: TTrFS Multi-normalization Multi-distance Assessment</h1>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
     
     st.write("Enhanced version with soft/hard criteria handling and expert aggregation")
@@ -1223,15 +1223,15 @@ def trust_step2_criteria_setup():
         st.write("""
         **Linguistic Terms and Trapezoidal Fuzzy Numbers:**
         
-        - ELI (Extremely Low): (0.00, 0.10, 0.20, 0.30)
-        - VLI (Very Low): (0.10, 0.20, 0.30, 0.40)
-        - LI (Low): (0.20, 0.30, 0.40, 0.50)
-        - MLI (Medium Low): (0.30, 0.40, 0.50, 0.60)
-        - MI (Medium): (0.40, 0.50, 0.60, 0.70)
-        - MHI (Medium High): (0.50, 0.60, 0.70, 0.80)
-        - HI (High): (0.60, 0.70, 0.80, 0.90)
-        - VHI (Very High): (0.70, 0.80, 0.90, 1.00)
-        - EHI (Extremely High): (0.80, 0.90, 1.00, 1.00)
+        - ELI (Extremely Low Importance): (0.00, 0.10, 0.20, 0.30)
+        - VLI (Very Low Importance): (0.10, 0.20, 0.30, 0.40)
+        - LI (Low Importance): (0.20, 0.30, 0.40, 0.50)
+        - MLI (Medium Low Importance): (0.30, 0.40, 0.50, 0.60)
+        - MI (Medium Importance): (0.40, 0.50, 0.60, 0.70)
+        - MHI (Medium High Importance): (0.50, 0.60, 0.70, 0.80)
+        - HI (High Importance): (0.60, 0.70, 0.80, 0.90)
+        - VHI (Very High Importance): (0.70, 0.80, 0.90, 1.00)
+        - EHI (Extremely High Importance): (0.80, 0.90, 1.00, 1.00)
         """)
     
     if st.button("Next: Expert Weights"):
@@ -1392,7 +1392,7 @@ def trust_step5_decision_matrix():
                     alternative_assessments.append(trfn_value)
                 all_expert_assessments.append(alternative_assessments)
             
-            # Aggregate using FTWG for each alternative
+            # Aggregate using trigonometric trapezoidal fuzzy weighted geometric (TTrFWG) for each alternative
             for i in range(n_alternatives):
                 aggregated_trfn = aggregate_ftwg(all_expert_assessments[i], expert_weights)
                 defuzzified_value = defuzzify_trfn(aggregated_trfn)
@@ -1825,23 +1825,23 @@ def trust_step8_calculations():
 # ==================== MAIN APP ====================
 
 def main():
-    st.sidebar.title("MCDM Model Selection")
+    st.sidebar.title("TTrFS MCDM Model Selection")
     st.sidebar.markdown("Select the model you want to use:")
     
     model_choice = st.sidebar.radio(
         "Choose Model:",
-        ["Trigonometric Trapezoidal Fuzzy OPA", "TRUST Method"],
+        ["Trigonometric Trapezoidal Fuzzy OPA", "TTrFS-TRUST Method"],
         index=0
     )
     
     if model_choice == "Trigonometric Trapezoidal Fuzzy OPA":
         opa_model()
-    elif model_choice == "TRUST Method":
+    elif model_choice == "TTrFS-TRUST Method":
         trust_model()
     
     st.markdown("""
     <div class="footer">
-    <p>Integrated MCDM Models Implementation | Developed by Md Abdul Moktadir</p>
+    <p>Integrated MCDM Models Implementation | Developed by AAA</p>
     </div>
     """, unsafe_allow_html=True)
 
