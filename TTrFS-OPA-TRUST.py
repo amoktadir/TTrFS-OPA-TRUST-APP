@@ -1821,8 +1821,7 @@ def trust_step8_calculations():
         st.session_state.trust_step = 1
         st.session_state.trust_data = {}
         st.rerun()
-
-def trust_model():
+    
     with st.expander("Learn more about the Trigonometric Trapezoidal Fuzzy TRUST (TTrFS-TRUST) Method"):
         st.markdown("""
         **Overview of Trigonometric Trapezoidal Fuzzy TRUST (TTrFS-TRUST) Method:**
