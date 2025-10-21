@@ -1199,27 +1199,6 @@ def trust_step1_input():
         st.session_state.trust_step = 2
         st.rerun()
 
-with st.expander("Learn more about the Trigonometric Trapezoidal Fuzzy TRUST (TTrF-TRUST) Method"):
-        st.markdown("""
-        **Steps of Trigonometric Trapezoidal Fuzzy OPA (TTrF-OPA):**
-        
-        1. Experts provide linguistic assessments for the criteria importance.
-        2. Convert to trapezoidal fuzzy numbers and aggregate using trigonometric trapezoidal fuzzy weighted geometric (TTrFWG) operator with expert weights.
-        3. Compute weight-coefficients using $min_l / w$, $min_l / u$, $min_l / m$, $min_l / l$.
-        4. Defuzzify to rank criteria to form contraints.
-        5. Formulate and solve a fuzzy linear programming model to find the final weights and defuzzify and rank.
-        
-        **Linguistic Terms and TrFN:**
-        ELI (Extremely Low Importance), VLI (Very Low Importance), LI (Low Importance), MI (Medium Importance), HI (High Importance), VHI (Very High Importance), EHI (Extremely High Importance)
-        - ELI: (1.0, 1.5, 2.5, 3.0)
-        - VLI: (2.0, 2.5, 3.5, 4.0)
-        - LI: (3.0, 3.5, 4.5, 5.0)
-        - MI: (4.0, 4.5, 5.5, 6.0)
-        - HI: (5.0, 5.5, 6.5, 7.0)
-        - VHI: (6.0, 6.5, 7.5, 8.0)
-        - EHI: (7.0, 7.5, 8.5, 9.0)
-        """)
-
 def trust_step2_criteria_setup():
     st.header("Step 2: Criteria Setup")
     
@@ -1842,6 +1821,89 @@ def trust_step8_calculations():
         st.session_state.trust_step = 1
         st.session_state.trust_data = {}
         st.rerun()
+
+def trust_model():
+    with st.expander("Learn more about the Trigonometric Trapezoidal Fuzzy TRUST (TTrFS-TRUST) Method"):
+        st.markdown("""
+        **Overview of Trigonometric Trapezoidal Fuzzy TRUST (TTrFS-TRUST) Method:**
+        
+        The TTrFS-TRUST (Trigonometric Trapezoidal Fuzzy Soft Multi-normalization Multi-distance Assessment) method 
+        is an advanced MCDM approach that combines trigonometric trapezoidal fuzzy sets with multiple normalization 
+        techniques and distance measures for comprehensive alternative evaluation.
+        
+        **Key Steps of TTrFS-TRUST Method:**
+        
+        1. **Problem Setup**: Define alternatives, criteria, experts, and parameters (∂ and β)
+        2. **Criteria Classification**: Separate criteria into Soft (linguistic assessments) and Hard (crisp values)
+        3. **Expert Aggregation**: Use Trigonometric Trapezoidal Fuzzy Weighted Geometric (TTrFWG) operator to aggregate multiple expert opinions
+        4. **Multi-Normalization**: Apply four different normalization techniques:
+           - Linear Ratio-based (r_ij)
+           - Linear Sum-based (s_ij) 
+           - Max-Min (m_ij)
+           - Logarithmic (l_ij)
+        5. **Constraint Integration**: Incorporate constraint intervals (ϱⱼᴸ, ϱⱼᵁ) for realistic boundary conditions
+        6. **Multi-Distance Assessment**: Calculate four distance measures from negative-ideal solution:
+           - Euclidean Distance (ε_i)
+           - Manhattan Distance (π_i)
+           - Lorentzian Distance (l_i)
+           - Pearson Distance (ρ_i)
+        7. **Relative Assessment**: Compute relative assessment matrices (℘_ik and ℌ_ik)
+        8. **Final Ranking**: Combine distances using β parameter to obtain final scores (ℒ_i)
+        
+        **Mathematical Formulation:**
+        
+        **Aggregated Normalized Matrix:**
+        h_ij = ∂₁·r_ij + ∂₂·s_ij + ∂₃·m_ij + ∂₄·l_ij
+        
+        **Constrained Score Matrix:**
+        η_ij = h_ij × f_ij  (where f_ij is constraint satisfaction degree)
+        
+        **Weighted Decision Matrix:**
+        v_ij = η_ij × w_j
+        
+        **Distance Measures:**
+        - Euclidean: ε_i = √[∑(v_ij - τ_j)²]
+        - Manhattan: π_i = ∑|v_ij - τ_j|
+        - Lorentzian: l_i = ∑log₁₀(1 + |v_ij - τ_j|)
+        - Pearson: ρ_i = ∑[(v_ij - τ_j)² / τ_j]
+        
+        **Relative Assessment Matrices:**
+        ℘_ik = (ε_i - ε_k) + (ε_i - ε_k) × (π_i - π_k)
+        ℌ_ik = (l_i - l_k) + (l_i - l_k) × (ρ_i - ρ_k)
+        
+        **Final Score:**
+        ℒ_i = β·∑℘_ik + (1-β)·∑ℌ_ik
+        
+        **Linguistic Scale for Soft Criteria:**
+        - ELI (Extremely Low): (0.00, 0.10, 0.20, 0.30)
+        - VLI (Very Low): (0.10, 0.20, 0.30, 0.40)
+        - LI (Low): (0.20, 0.30, 0.40, 0.50)
+        - MLI (Medium Low): (0.30, 0.40, 0.50, 0.60)
+        - MI (Medium): (0.40, 0.50, 0.60, 0.70)
+        - MHI (Medium High): (0.50, 0.60, 0.70, 0.80)
+        - HI (High): (0.60, 0.70, 0.80, 0.90)
+        - VHI (Very High): (0.70, 0.80, 0.90, 1.00)
+        - EHI (Extremely High): (0.80, 0.90, 1.00, 1.00)
+        
+        **Parameters:**
+        - **∂ = (∂₁, ∂₂, ∂₃, ∂₄)**: Normalization weights (must sum to 1)
+        - **β**: Distance aggregation parameter (0 ≤ β ≤ 1)
+        - **ϱⱼᴸ, ϱⱼᵁ**: Lower and upper constraint bounds for criterion j
+        
+        **Advantages of TTrFS-TRUST:**
+        - Handles both linguistic and crisp data simultaneously
+        - Incorporates multiple expert opinions with weighted aggregation
+        - Uses multiple normalization techniques for robust results
+        - Considers constraint-based realistic boundaries
+        - Combines multiple distance measures for comprehensive assessment
+        - Provides transparent step-by-step calculation process
+        
+        **Applications:**
+        - Complex decision-making problems with mixed data types
+        - Situations requiring multiple expert input
+        - Problems with constraint boundaries and realistic limits
+        - Cases where robust, multi-perspective evaluation is needed
+        """)
 
 # ==================== MAIN APP ====================
 
