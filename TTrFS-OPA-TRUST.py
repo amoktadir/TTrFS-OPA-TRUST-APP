@@ -1149,16 +1149,6 @@ def trust_model():
         **Final Score:**
         ℒ_i = β·∑℘_ik + (1-β)·∑ℌ_ik
         
-        **Linguistic Scale for Soft Criteria:**
-        - ELI (Extremely Low): (0.00, 0.10, 0.20, 0.30)
-        - VLI (Very Low): (0.10, 0.20, 0.30, 0.40)
-        - LI (Low): (0.20, 0.30, 0.40, 0.50)
-        - MLI (Medium Low): (0.30, 0.40, 0.50, 0.60)
-        - MI (Medium): (0.40, 0.50, 0.60, 0.70)
-        - MHI (Medium High): (0.50, 0.60, 0.70, 0.80)
-        - HI (High): (0.60, 0.70, 0.80, 0.90)
-        - VHI (Very High): (0.70, 0.80, 0.90, 1.00)
-        - EHI (Extremely High): (0.80, 0.90, 1.00, 1.00)
         
         **Parameters:**
         - **∂ = (∂₁, ∂₂, ∂₃, ∂₄)**: Normalization weights (must sum to 1)
@@ -1172,12 +1162,7 @@ def trust_model():
         - Considers constraint-based realistic boundaries
         - Combines multiple distance measures for comprehensive assessment
         - Provides transparent step-by-step calculation process
-        
-        **Applications:**
-        - Complex decision-making problems with mixed data types
-        - Situations requiring multiple expert input
-        - Problems with constraint boundaries and realistic limits
-        - Cases where robust, multi-perspective evaluation is needed
+      
         """)
     # Initialize session state for TRUST
     if 'trust_step' not in st.session_state:
