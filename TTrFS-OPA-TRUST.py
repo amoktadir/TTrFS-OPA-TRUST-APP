@@ -1295,8 +1295,18 @@ def trust_step2_criteria_setup():
     }
     df = pd.DataFrame(data)
     
-    # Editable table for criteria setup
-    edited_df = st.data_editor(df, use_container_width=True)
+    # Editable table for criteria setup with case-insensitive handling
+    edited_df = st.data_editor(
+        df, 
+        use_container_width=True,
+        column_config={
+            "Type": st.column_config.SelectboxColumn(
+                "Type",
+                options=["Soft", "Hard", "soft", "hard"],
+                help="Select 'Soft' for linguistic assessments or 'Hard' for crisp values"
+            )
+        }
+    )
     
     # Display linguistic scale information
     with st.expander("Linguistic Scale for Soft Criteria"):
@@ -1315,6 +1325,8 @@ def trust_step2_criteria_setup():
         """)
     
     if st.button("Next: Expert Weights"):
+        # Convert all types to lowercase for consistent handling
+        edited_df['Type'] = edited_df['Type'].str.lower()
         st.session_state.trust_data['criteria_setup'] = edited_df
         st.session_state.trust_data['criteria_types'] = edited_df['Type'].values
         st.session_state.trust_step = 3
@@ -1381,9 +1393,9 @@ def trust_step4_data_collection():
             index=alternatives
         )
     
-    # Separate soft and hard criteria
-    soft_criteria = [criteria[i] for i, t in enumerate(criteria_types) if t == 'Soft']
-    hard_criteria = [criteria[i] for i, t in enumerate(criteria_types) if t == 'Hard']
+    # Separate soft and hard criteria using case-insensitive comparison
+    soft_criteria = [criteria[i] for i, t in enumerate(criteria_types) if str(t).lower() == 'soft']
+    hard_criteria = [criteria[i] for i, t in enumerate(criteria_types) if str(t).lower() == 'hard']
     
     st.write("### Soft Criteria Assessment")
     st.write("Multiple experts provide linguistic assessments for soft criteria")
@@ -1460,7 +1472,8 @@ def trust_step5_decision_matrix():
     
     # Process each criterion
     for j, criterion in enumerate(criteria):
-        if criteria_types[j] == 'Soft':
+        # Use case-insensitive comparison for criteria type
+        if str(criteria_types[j]).lower() == 'soft':
             # Collect all expert assessments for this criterion
             all_expert_assessments = []
             for i in range(n_alternatives):
@@ -1511,7 +1524,7 @@ def trust_step5_decision_matrix():
                 defuzzified_value = decision_matrix[tab_idx, j]
                 
                 # Format expert assessments
-                if criteria_types[j] == 'Soft':
+                if str(criteria_types[j]).lower() == 'soft':
                     assessments_str = ", ".join(expert_assessments)
                 else:
                     assessments_str = f"Crisp: {expert_assessments[0]}"
@@ -1545,7 +1558,8 @@ def trust_step5_decision_matrix():
     with col2:
         st.metric("Total Criteria", n_criteria)
     with col3:
-        soft_count = sum(1 for ct in criteria_types if ct == 'Soft')
+        # Use case-insensitive comparison for counting
+        soft_count = sum(1 for ct in criteria_types if str(ct).lower() == 'soft')
         hard_count = n_criteria - soft_count
         st.metric("Soft/Hard Criteria", f"{soft_count}/{hard_count}")
     
