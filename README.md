@@ -147,6 +147,6 @@ If you use this app in academic work, please cite:
 
 ## 👤 Author
 
-Developed by **Moktadir, M.A., Lu, S., Ren, J.**
+Developed by **Md Abdul Moktadir**
 
 ---
