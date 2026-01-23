@@ -128,18 +128,19 @@ The app also supports **exporting results to Word (.docx)** for both models.
 4. Ensure `requirements.txt` is present.
 
 ---
-
 ## 📄 Citation
 
-If you use this tool in academic work, please cite the associated paper/methodology:
+If you use this app in academic work, please cite:
 
 ```bibtex
-@article{yourkey,
-  title={A Novel Environmental, Social, and Governance Performance Assessment Model for the Global Oil and Gas Sector},
-  author={Moktadir, M.A., Lu, S., Ren, J.},
-  journal={Business Strategy And The Environment, doi: 10.1002/bse.70614},
-  year={2026}
+@article{moktadir2026esg,
+  title   = {A Novel Environmental, Social, and Governance Performance Assessment Model for the Global Oil and Gas Sector},
+  author  = {Moktadir, M. A. and Lu, S. and Ren, J.},
+  journal = {Business Strategy and the Environment},
+  year    = {2026},
+  doi     = {10.1002/bse.70614}
 }
+
 ```
 
 ---
