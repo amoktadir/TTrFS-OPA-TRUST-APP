@@ -1920,7 +1920,7 @@ def main():
     
     st.markdown("""
     <div class="footer">
-    <p>Integrated MCDM Models Implementation | Developed by AAA</p>
+    <p>Integrated MCDM Models Implementation | Developed by Moktadir, M. A., Lu, S., and Ren, J.</p>
     </div>
     """, unsafe_allow_html=True)
 
