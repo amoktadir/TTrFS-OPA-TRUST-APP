@@ -132,14 +132,7 @@ The app also supports **exporting results to Word (.docx)** for both models.
 
 If you use this app in academic work, please cite:
 
-```bibtex
-@article{moktadir2026esg,
-  title   = {A Novel Environmental, Social, and Governance Performance Assessment Model for the Global Oil and Gas Sector},
-  author  = {Moktadir, M. A. and Lu, S. and Ren, J.},
-  journal = {Business Strategy and the Environment},
-  year    = {2026},
-  doi     = {10.1002/bse.70614}
-}
+Moktadir, M. A., Lu, S., & Ren, J. (2026). A Novel Environmental, Social, and Governance Performance Assessment Model for the Global Oil and Gas Sector. Business Strategy and the Environment, doi: https://doi.org/10.1002/bse.70614.
 
 ```
 
